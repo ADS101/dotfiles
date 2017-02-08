@@ -1,8 +1,2 @@
-sudo apt-get update && sudo apt-get upgrade
-
-add src directory
-install git
-git clone screenfetch
-move to /usr/local/bin
-
-
+Implement dynamic bash coloring/packages
+move .bashrc's echo; screenfetch; echo to the ssh MOTD

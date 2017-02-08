@@ -34,3 +34,7 @@ for distro in ${supported_distros[@]}; do
 	fi
 	(( count++ ))
 done
+
+echo "parse_git_branch() {
+	git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* ](.*\)/ [/1]' 
+}" >> testgit

@@ -1,21 +1,30 @@
-supported_distros=('Ubuntu' 'Debian' 'Fedora' 'CentOS')
+supported_distros=('Ubuntu' 'Debian' 'Fedora' 'CentOS' 'Other')
 
 distro_info1=$(cat /etc/*release | awk 'NR==1' | cut -d"=" -f2)
 
-package_managers=('apt-get' 'apt-get' 'dnf' 'yum' 'yum')
+package_managers=('apt-get' 'apt-get' 'dnf' 'yum')
 
-distro_colors=('[33m\]' '[91m\]' '[36m\]' '[94m\]')
+distro_colors=('33' '91' '36' '94' '97')
 
 count=0
 for distro in ${supported_distros[@]}; do
 	if [[ $distro == *$distro_info* || $distro == $(lsb_release -sirc) ]]; then
-		$distro=$count
+		break;
 	fi
 	(( count++ ))
 done
 
+
+echo "parse_git_branch() {
+	     git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ [\1]/'
+     }" >> $HOME/.bashrc
+
+sed -i "/PS1=*/c\export PS1='[\[\e[${distro_colors[$count]}m\]\u\[\e[m\]\[\e[${distro_colors[$count]}m\]@\[\e[m\]\[\e[${distro_colors[$count]}m\]\h\[\e[m\] \[\e[${distro_colors[$count]}m\]\W\[\e[m\]]:\n[\[\e[${distro_colors[$count]}m\]\@\[\e[m\]] \[\e[${distro_colors[$count]}m\]\\$\[\e[m\] '\\" $HOME/.bashrc
+
+
 packages=(
-	git
+	curl
+	wget
 	htop
 	vim
 	libncurses5-dev
@@ -44,11 +53,10 @@ for repo in ${gitrepos[@]}; do
 	git clone "$repo"
 done
 
-cd screenFetch; chmod +x screenfetch-dev; sudo mv screenfetch-dev /usr/bin/screenfetch
+cd $HOME/src/screenFetch; chmod +x screenfetch-dev; sudo mv screenfetch-dev /usr/bin/screenfetch
 
-cd $HOME/src/apt-vim; apt-vim init
+cd $HOME/src/apt-vim; bash install.sh;
 
-cd $HOME/dotfiles; cp -rf .bashrc $HOME/; cp -rf .bash_profile $HOME/; cp -rf .vimrc $HOME/
+cd $HOME/src/dotfiles; cp -rf .vimrc $HOME/
 
-echo 'export PS1="[\[\e[104;40m\]\u\[\e[m\]\[\e[34m\]@\[\e[m\]\[\e[31m\]\h\[\e[m\]]:\n[\[\e[94m\]\@\[\e[m\]] "'
-
+. $HOME/.bashrc
