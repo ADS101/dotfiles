@@ -1,0 +1,8 @@
+sudo apt-get update && sudo apt-get upgrade
+
+add src directory
+install git
+git clone screenfetch
+move to /usr/local/bin
+
+
