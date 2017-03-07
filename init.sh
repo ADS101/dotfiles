@@ -1,6 +1,6 @@
 supported_distros=('Ubuntu' 'Debian' 'Fedora' 'CentOS' 'Red Hat' 'Mint' 'Other')
 
-distro_info1=$(cat /etc/*release | awk 'NR==1' | cut -d"=" -f2)
+distro_info=$(cat /etc/*release | awk 'NR==1' | cut -d"=" -f2)
 
 package_managers=('apt-get' 'apt-get' 'dnf' 'yum' 'yum' 'apt-get')
 
@@ -8,7 +8,8 @@ distro_colors=('38;5;9' '38;5;9' '1;34' '1;33' '1;32' '1;37')
 
 count=0
 for distro in "${supported_distros[@]}"; do
-	if [[ $distro =~ *$distro_info* || $distro == $(lsb_release -sirc | awk "NR==1") ]]; then
+	echo $distro
+	if [[ $distro_info == *$distro* || $distro == $(lsb_release -sirc | awk "NR==1") ]]; then
 		break;
 	fi
 	(( count++ ))
