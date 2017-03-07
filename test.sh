@@ -15,7 +15,12 @@ else
 	echo "Does not exist"
 fi
 
-supported_distros=('Ubuntu' 'Debian' 'Fedora' 'Red Hat' 'CentOS' 'LinuxMint')
+supported_distros=('Ubuntu' 
+			'Debian' 
+			'Fedora' 
+			"Red Hat" 
+			'CentOS' 
+			'LinuxMint')
 
 distro_info=$(cat /etc/*release | awk 'NR==1' | cut -d"=" -f2)
 
@@ -27,7 +32,8 @@ distro_colors=('[33m\]' '[91m\]' '[36m\]' '[31m\]' '[94m\]' '[1;32]')
 distro_no=0
 count=0
 for distro in ${supported_distros[@]}; do
-	if [[ $distro == *$distro_info* || $distro == $(lsb_release -sirc | awk 'NR==1')	]]; then
+	if [[ *$distro_info* =~ $distro || $distro == $(lsb_release -sirc > /dev/null 2&>1 | awk 'NR==1')	]]; then
+
 		echo "It's $distro!"
 		distro_no=$count
 		echo "I use ${package_managers[$distro_no]}!"
