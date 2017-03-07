@@ -26,7 +26,7 @@ distro_colors=('[33m\]' '[91m\]' '[36m\]' '[31m\]' '[94m\]' '[1;32]')
 
 distro_no=0
 count=0
-for distro in ${supported_distros[@]}; do
+for distro in "${supported_distros[@]}"; do
 	if [[ $distro == *$distro_info* || $distro == $(lsb_release -sirc | awk 'NR==1')	]]; then
 		echo "It's $distro!"
 		distro_no=$count

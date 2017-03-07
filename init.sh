@@ -7,7 +7,7 @@ package_managers=('apt-get' 'apt-get' 'dnf' 'yum')
 distro_colors=('33' '91' '36' '94' '1;32')
 
 count=0
-for distro in ${supported_distros[@]}; do
+for distro in "${supported_distros[@]}"; do
 	if [[ $distro == *$distro_info* || $distro == $(lsb_release -sirc) ]]; then
 		break;
 	fi
