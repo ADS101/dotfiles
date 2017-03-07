@@ -1,14 +1,14 @@
-supported_distros=('Ubuntu' 'Debian' 'Fedora' 'CentOS' 'Other')
+supported_distros=('Ubuntu' 'Debian' 'Fedora' 'CentOS' 'Red Hat' 'Mint' 'Other')
 
 distro_info1=$(cat /etc/*release | awk 'NR==1' | cut -d"=" -f2)
 
-package_managers=('apt-get' 'apt-get' 'dnf' 'yum')
+package_managers=('apt-get' 'apt-get' 'dnf' 'yum' 'yum' 'apt-get')
 
-distro_colors=('33' '91' '36' '94' '1;32')
+distro_colors=('38;5;9' '38;5;9' '1;34' '1;33' '1;32' '1;37')
 
 count=0
-for distro in ${supported_distros[@]}; do
-	if [[ $distro == *$distro_info* || $distro == $(lsb_release -sirc) ]]; then
+for distro in "${supported_distros[@]}"; do
+	if [[ $distro =~ *$distro_info* || $distro == $(lsb_release -sirc | awk "NR==1") ]]; then
 		break;
 	fi
 	(( count++ ))
@@ -41,12 +41,8 @@ gitrepos=(
 #	https://github.com/torvalds/linux
 )
 
-onlinepackages=(
-	https://go.microsoft.com/fwlink/?LinkID=760868
-)
-
 for package in ${packages[@]}; do
-	sudo apt-get install "$package"
+	sudo "${package_managers[$count]}" install "$package"
 done
 
 if ! [ -d "$HOME/src" ]; then

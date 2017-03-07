@@ -33,7 +33,6 @@ distro_no=0
 count=0
 for distro in ${supported_distros[@]}; do
 	if [[ *$distro_info* =~ $distro || $distro == $(lsb_release -sirc > /dev/null 2&>1 | awk 'NR==1')	]]; then
-
 		echo "It's $distro!"
 		distro_no=$count
 		echo "I use ${package_managers[$distro_no]}!"
