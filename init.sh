@@ -4,7 +4,7 @@ distro_info1=$(cat /etc/*release | awk 'NR==1' | cut -d"=" -f2)
 
 package_managers=('apt-get' 'apt-get' 'dnf' 'yum')
 
-distro_colors=('33' '91' '36' '94' '97')
+distro_colors=('33' '91' '36' '94' '1;32')
 
 count=0
 for distro in ${supported_distros[@]}; do
@@ -23,6 +23,7 @@ sed -i "/PS1=*/c\export PS1='[\[\e[${distro_colors[$count]}m\]\u\[\e[m\]\[\e[${d
 
 
 packages=(
+	git
 	curl
 	wget
 	htop
@@ -31,12 +32,17 @@ packages=(
 	ifconfig
 	build-essential
 	manpages-dev
+	modutils
 	)
 
 gitrepos=(
 	https://github.com/KittyKatt/screenFetch
 	https://github.com/egalpin/apt-vim
 #	https://github.com/torvalds/linux
+)
+
+onlinepackages=(
+	https://go.microsoft.com/fwlink/?LinkID=760868
 )
 
 for package in ${packages[@]}; do
