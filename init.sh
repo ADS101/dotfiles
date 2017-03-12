@@ -4,7 +4,7 @@ distro_info=$(cat /etc/*release | awk 'NR==1' | cut -d"=" -f2)
 
 package_managers=('apt-get' 'apt-get' 'dnf' 'yum' 'yum' 'apt-get')
 
-distro_colors=('38;5;9' '38;5;9' '1;34' '1;33' '1;32' '1;37')
+distro_colors=('33;1' '38;5;9' '1;34' '1;33' '0;31' '1;32' '1;37')
 
 count=0
 for distro in "${supported_distros[@]}"; do
@@ -34,6 +34,7 @@ packages=(
 	build-essential
 	manpages-dev
 	modutils
+	tilda
 	)
 
 gitrepos=(
@@ -43,7 +44,7 @@ gitrepos=(
 )
 
 for package in ${packages[@]}; do
-	sudo "${package_managers[$count]}" install "$package"
+	sudo "${package_managers[$count]}" -y install "$package"
 done
 
 if ! [ -d "$HOME/src" ]; then
