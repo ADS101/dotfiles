@@ -24,6 +24,7 @@ sed -i "/PS1=*/c\export PS1='[\[\e[${distro_colors[$count]}m\]\u\[\e[m\]\[\e[${d
 
 
 packages=(
+#	eog
 	git
 	curl
 	wget
@@ -34,7 +35,7 @@ packages=(
 	build-essential
 	manpages-dev
 	modutils
-	tilda
+#	tilda
 	)
 
 gitrepos=(
@@ -42,6 +43,10 @@ gitrepos=(
 	https://github.com/egalpin/apt-vim
 #	https://github.com/torvalds/linux
 )
+
+##### Install WP-CLI #####
+
+# curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
 
 for package in ${packages[@]}; do
 	sudo "${package_managers[$count]}" -y install "$package"
