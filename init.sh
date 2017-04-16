@@ -8,10 +8,12 @@ distro_colors=('33;1' '38;5;9' '1;34' '1;33' '0;31' '1;32' '1;37')
 
 count=0
 for distro in "${supported_distros[@]}"; do
-	echo $distro
+	echo "Trying $distro ..."
 	if [[ $distro_info == *$distro* || $distro == $(lsb_release -sirc | awk "NR==1") ]]; then
+		echo "Bingo! Proceeding..."
 		break;
 	fi
+	echo "next..."
 	(( count++ ))
 done
 
