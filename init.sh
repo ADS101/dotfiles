@@ -22,7 +22,17 @@ echo "parse_git_branch() {
 	     git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ [\1]/'
      }" >> $HOME/.bashrc
 
-sed -i "/PS1=*/c\export PS1='[\[\e[${distro_colors[$count]}m\]\u\[\e[m\]\[\e[${distro_colors[$count]}m\]@\[\e[m\]\[\e[${distro_colors[$count]}m\]\h\[\e[m\] \[\e[${distro_colors[$count]}m\]\W\[\e[m\]]:\n[\[\e[${distro_colors[$count]}m\]\@\[\e[m\]] \[\e[${distro_colors[$count]}m\]\\$\[\e[m\] '\\" $HOME/.bashrc
+
+if [[ $(grep -F "PS1" $HOME/.bashrc) ]];
+then
+
+	sed -i "/PS1=*/c\export PS1='[\[\e[${distro_colors[$count]}m\]\u\[\e[m\]\[\e[${distro_colors[$count]}m\]@\[\e[m\]\[\e[${distro_colors[$count]}m\]\h\[\e[m\] \[\e[${distro_colors[$count]}m\]\W\[\e[m\]]:\n[\[\e[${distro_colors[$count]}m\]\@\[\e[m\]] \[\e[${distro_colors[$count]}m\]\\$\[\e[m\] '\\" $HOME/.bashrc
+
+else
+        echo "export PS1='[\[\e[${distro_colors[$count]}m\]\u\[\e[m\]\[\e[${distro_colors[$count]}m\]@\[\e[m\]\[\e[${distro_colors[$count]}m\]\h\[\e[m\] \[\e[${distro_colors[$count]}m\]\W\[\e[m\]]:\n[\[\e[${distro_colors[$count]}m\]\@\[\e[m\]] \[\e[${distro_colors[$count]}m\]\\$\[\e[m\] '" >> $HOME/.bashrc
+
+fi;
+
 
 
 packages=(
@@ -33,7 +43,7 @@ packages=(
 	htop
 	vim
 	libncurses5-dev
-	ifconfig
+#	ifconfig
 	build-essential
 	manpages-dev
 	modutils
@@ -43,7 +53,7 @@ packages=(
 gitrepos=(
 	https://github.com/KittyKatt/screenFetch
 	https://github.com/egalpin/apt-vim
-#	https://github.com/torvalds/linux
+	https://github.com/torvalds/linux
 )
 
 ##### Install WP-CLI #####

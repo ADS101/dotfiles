@@ -1,8 +1,11 @@
+echo "THIS IS A TEST"
+
 packages=(
 	htop
 	ssh
 	)
 
+echo "If this were real, I'd be installing..."
 if (( ${#packages[@]} > 0 )); then
 	for package in "${packages[@]}"; do
 		echo "$package"
@@ -10,9 +13,9 @@ done
 fi
 
 if ! [ -d "$HOME/src" ]; then
-	echo "exists"
+	echo "src directory exists"
 else
-	echo "Does not exist"
+	echo "src directory does not exist"
 fi
 
 supported_distros=('Ubuntu' 
@@ -33,9 +36,9 @@ distro_no=0
 count=0
 for distro in ${supported_distros[@]}; do
 	if [[ *$distro_info* =~ $distro || $distro == $(lsb_release -sirc > /dev/null 2&>1 | awk 'NR==1')	]]; then
-		echo "It's $distro!"
+		echo "You are using $distro"
 		distro_no=$count
-		echo "I use ${package_managers[$distro_no]}!"
+		echo "You use the package manager ${package_managers[$distro_no]}!"
 	fi
 	(( count++ ))
 done
@@ -43,3 +46,13 @@ done
 echo "parse_git_branch() {
 	git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* ](.*\)/ [/1]' 
 }" >> testgit
+
+echo "CHECKING FOR PS1 VARIABLE IN .BASRHRC..."
+
+if [[ $(grep -F "PS1" $HOME/.bashrc) ]]; 
+then
+	echo "PS1 found!"; 
+else
+	echo "No PS1 found..."; 
+fi;
+
