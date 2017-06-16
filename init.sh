@@ -1,15 +1,15 @@
-supported_distros=('Ubuntu' 'Debian' 'Fedora' 'CentOS' 'Red Hat' 'Mint' 'Other')
+supported_distros=('Ubuntu' 'Debian' 'Fedora' 'CentOS' 'Red Hat' 'Mint' 'OSX' 'Other')
 
 distro_info=$(cat /etc/*release | awk 'NR==1' | cut -d"=" -f2)
 
 package_managers=('apt-get' 'apt-get' 'dnf' 'yum' 'yum' 'apt-get')
 
-distro_colors=('33;1' '38;5;9' '1;34' '1;33' '0;31' '1;32' '1;37')
+distro_colors=('33;1' '38;5;9' '1;34' '1;33' '0;31' '1;32' '1;30' '1;37')
 
 count=0
 for distro in "${supported_distros[@]}"; do
 	echo "Trying $distro ..."
-	if [[ $distro_info == *$distro* || $distro == $(lsb_release -sirc | awk "NR==1") ]]; then
+	if [[ $distro_info == *$distro* || $distro == $(lsb_release -sirc | awk "NR==1") || $(sw_vers | awk 'NR==1' | cut -d $'\t' -f2) == $distro ]]; then
 		echo "Bingo! Proceeding..."
 		break;
 	fi
