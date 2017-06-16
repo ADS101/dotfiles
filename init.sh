@@ -22,7 +22,10 @@ echo "parse_git_branch() {
 	     git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ [\1]/'
      }" >> $HOME/.bashrc
 
-
+if [[ ! -f $HOME/.bashrc ]]; then
+	touch $HOME/.bashrc
+fi
+	
 if [[ $(grep -F "PS1" $HOME/.bashrc) ]];
 then
 
