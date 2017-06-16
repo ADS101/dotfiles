@@ -47,13 +47,15 @@ packages=(
 	build-essential
 	manpages-dev
 	modutils
+	ffmpeg
 #	tilda
 	)
 
 gitrepos=(
 	https://github.com/KittyKatt/screenFetch
 	https://github.com/egalpin/apt-vim
-	https://github.com/torvalds/linux
+#	https://github.com/torvalds/linux
+	https://github.com/rg3/youtube-dl
 )
 
 ##### Install WP-CLI #####
