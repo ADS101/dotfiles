@@ -1,4 +1,4 @@
-Implement dynamic bash coloring/packages
+! Implement dynamic bash coloring/packages
 move .bashrc's echo; screenfetch; echo to the ssh MOTD
 implement Mint support
 wordpress/wp-cli server/implementation

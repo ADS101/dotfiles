@@ -1,5 +1,20 @@
 echo "THIS IS A TEST"
 
+
+while getopts ":aA:zZ" flag;
+do
+case $i in
+	a)
+		echo "-a was triggered" >&2 ;;
+	A)
+		echo "-A was triggered" >&2 ;;
+	z)
+		echo "-z was triggered" >&2 ;;
+	Z)
+		echo "-Z was triggered" >&2 ;;
+esac
+done
+
 packages=(
 	htop
 	ssh

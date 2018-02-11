@@ -12,9 +12,36 @@ current_os=""
 
 dry_run=false
 
-if [[ $1 == "--dry-run" ]]; then
-	dry_run=true
-fi
+verbose=false
+install_file=""
+restricted=false
+prompt_only=false
+
+while getopts ":DvcpRi:" params; do
+	case $params in
+		D)
+			$dry_run=true
+			;;
+		v)
+			$verbose=true
+			;;
+		i)
+			$install_file=$OPTARG
+			;;
+		p)
+			$prompt_only=true
+			;;
+		R)
+			$restricted=true
+			;;
+		\?)
+			echo "Invalid option: -$OPTARG" >&2
+			exit
+			;;
+	esac
+done
+
+detectHost() {
 for distro in "${supported_distros[@]}"; do
 	echo "Trying $distro ..."
 	if [[ $distro_info == *$distro* || $distro == $(lsb_release -sirc 2> /dev/null | awk "NR==1") || $(sw_vers 2> /dev/null | awk 'NR==1' | cut -d $'\t' -f2) == $distro ]]; then
@@ -25,12 +52,14 @@ for distro in "${supported_distros[@]}"; do
 	(( count++ ))
 done
 
+}
 
 echo "parse_git_branch() {
 	     git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ [\1]/'
      }" >> $HOME/.bashrc
 
 
+prompt_color() {
 if [[ ! -f $HOME/.bashrc ]]; then
 	touch $HOME/.bashrc
 fi
@@ -50,7 +79,7 @@ if [[ $dry_run == false ]]; then
 	else
 		echo "Your bash prompt would have \[\033[${distro_colors[$count]}m\] this colour, moving on! \[\033[0m\] "
 	fi
-
+}
 
 
 packages=(
